@@ -51,7 +51,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     const { mutateAsync: createNotification } = trpc.createNotification.useMutation({
         onSuccess: newNotification => {
-            setNotifications(prev => [...prev, newNotification]);
+            setNotifications(prev => [newNotification, ...prev]);
             setUnread(prevUnread => prevUnread + 1);
         },
         onError: error => {

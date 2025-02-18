@@ -55,7 +55,7 @@ const NotificationForm: React.FC<{ setOpen: (arg: boolean) => void }> = ({ setOp
             setTimeout(() => {
                 setSuccess(null);
                 setOpen(false);
-            }, 5000);
+            }, 3000);
         } catch (e) {
             setError('Something went wrong')
         }

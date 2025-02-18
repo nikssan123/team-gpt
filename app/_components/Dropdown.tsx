@@ -1,7 +1,7 @@
 'use client';
 
 import { DropdownMenu, Button, Avatar } from '@radix-ui/themes';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BellIcon, PlusIcon } from '@radix-ui/react-icons';
 import { useNotifications } from '../_context/NotificationContext';
 import { useRouter } from "next/navigation";
@@ -17,20 +17,35 @@ const Dropdown = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
+    const [showUnread, setShowUnread] = useState(false);
 
-    const setColor = (type: string) => {
-        switch (type) {
-            case 'Platform Update':
-                return 'bg-blue-500';
-            case 'Comment Tag':
-                return 'bg-teal-500';
-            case 'Access Granted':
-                return 'bg-green-500';
-            case 'Join Workspace':
-                return 'bg-purple-500';
-            default:
-                return 'bg-blue-500'
+    useEffect(() => {
+        if (unread > 0) {
+            setShowUnread(true)
+        } else {
+            setShowUnread(false)
         }
+
+    }, [unread])
+
+    const setColor = (type: string, read: boolean | undefined) => {
+        if (read) {
+            return 'bg-gray-400';
+        } else {
+            switch (type) {
+                case 'Platform Update':
+                    return 'bg-blue-500';
+                case 'Comment Tag':
+                    return 'bg-teal-500';
+                case 'Access Granted':
+                    return 'bg-green-500';
+                case 'Join Workspace':
+                    return 'bg-purple-500';
+                default:
+                    return 'bg-blue-500'
+            }
+        }
+
     }
 
     const formatMsg = (type: string, person?: string | null) => {
@@ -93,7 +108,7 @@ const Dropdown = () => {
                 <DropdownMenu.Trigger>
                     <Button className='relative' variant='ghost'>
                         <BellIcon className='w-16 h-16 text-white' />
-                        {unread > 0 && (
+                        {showUnread && (
                             <span className='top-0 left-10 bg-red-500 text-white text-xs rounded-full px-2'>
                                 {unread}
                             </span>
@@ -111,7 +126,7 @@ const Dropdown = () => {
                     <DropdownMenu.Separator />
                     {notifications.length > 0 ? notifications.map((item) => {
                         return (
-                            <DropdownMenu.Item onClick={() => onClick(item.id, item.type, item.release)} className={`flex items-center ${setColor(item.type)} text-white`} key={item.id}>
+                            <DropdownMenu.Item onClick={() => onClick(item.id, item.type, item.release)} className={`flex my-1 items-center ${setColor(item.type, item.read)} text-white`} key={item.id}>
                                 <div className='flex items-center gap-2 overflow-hidden' >
                                     {getAvatar(item.type)}
                                     <span className='truncate'>

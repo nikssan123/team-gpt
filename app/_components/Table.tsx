@@ -1,9 +1,15 @@
-import { Table } from "@radix-ui/themes";
+'use client';
+
+import { Button, Table } from "@radix-ui/themes";
 import { Notification } from "@/app/_context/NotificationContext";
+import { useRouter } from "next/navigation";
+
 const NotificationTable: React.FC<{ type: string; notifications: Notification[] | null }> = ({
     type,
     notifications,
 }) => {
+    const router = useRouter();
+
     const renderItems = () => {
         return notifications?.map(item => {
             return (
@@ -23,11 +29,11 @@ const NotificationTable: React.FC<{ type: string; notifications: Notification[] 
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-slate-800 p-6">
-            <div className="w-full max-w-4xl p-6 shadow-lg">
+        <div className="flex flex-col items-center min-h-screen bg-slate-800 p-10">
+            <div className="w-full max-w-4xl p-6">
                 <h2 className="text-white text-2xl font-semibold mb-4">Notifications for {type}</h2>
                 <Table.Root className="w-full border">
-                    <Table.Header className="">
+                    <Table.Header>
                         <Table.Row className="bg-gray-700">
                             <Table.ColumnHeaderCell className="text-white">
                                 Message
@@ -44,6 +50,9 @@ const NotificationTable: React.FC<{ type: string; notifications: Notification[] 
                     <Table.Body>{notifications && renderItems()}</Table.Body>
                 </Table.Root>
             </div>
+            <Button onClick={() => router.back()} className="mt-4">
+                Go Back
+            </Button>
         </div>
     );
 };
