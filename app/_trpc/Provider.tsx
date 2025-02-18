@@ -5,7 +5,11 @@ import React, { useState } from 'react';
 
 import { trpc } from './client';
 
-const Provider = ({ children }: { children: React.ReactNode }) => {
+interface ProviderProps {
+    children: React.ReactNode;
+}
+
+const Provider: React.FC<ProviderProps> = ({ children }) => {
     const [queryClient] = useState(() => new QueryClient({}));
     const [trpcClient] = useState(() =>
         trpc.createClient({

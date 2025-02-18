@@ -19,11 +19,3 @@ body {
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
 }
-
-.add-button {
-    color: "#2b9a66";
-}
-
-.add-button:hover {
-    color: none;
-}

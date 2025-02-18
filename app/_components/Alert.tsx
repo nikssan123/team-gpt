@@ -1,7 +1,13 @@
 import { AlertDialog, Button, Text } from '@radix-ui/themes';
 import React from 'react';
 
-const Alert: React.FC<{ open: boolean; setOpen: (arg: boolean) => void; msg: string; }> = ({ open, setOpen, msg }) => {
+interface AlertProps {
+    open: boolean;
+    setOpen: (arg: boolean) => void;
+    msg: string;
+}
+
+const Alert: React.FC<AlertProps> = ({ open, setOpen, msg }) => {
     return (
         <AlertDialog.Root open={open} onOpenChange={setOpen}>
             <AlertDialog.Content size='1' maxWidth='300px'>
@@ -11,7 +17,7 @@ const Alert: React.FC<{ open: boolean; setOpen: (arg: boolean) => void; msg: str
                 </Text>
             </AlertDialog.Content>
         </AlertDialog.Root>
-    )
-}
+    );
+};
 
 export default Alert;

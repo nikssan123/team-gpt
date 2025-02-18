@@ -29,7 +29,11 @@ const notificationSchema = z.object({
 
 export type NotificationFormData = z.infer<typeof notificationSchema>;
 
-const NotificationForm: React.FC<{ setOpen: (arg: boolean) => void }> = ({ setOpen }) => {
+interface NotificationFormProps {
+    setOpen: (arg: boolean) => void;
+}
+
+const NotificationForm: React.FC<NotificationFormProps> = ({ setOpen }) => {
     const { addNotification } = useNotifications();
 
     const [selectedType, setSelectedType] = useState<NotificationFormData['type'] | ''>('Platform Update');

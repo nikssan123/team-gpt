@@ -4,7 +4,12 @@ import { Dialog, Button, Flex } from '@radix-ui/themes';
 import React from 'react';
 import NotificationForm from './NotificationForm';
 
-const Modal: React.FC<{ open: boolean; setOpen: (arg: boolean) => void }> = ({ open, setOpen }) => {
+interface ModalProps {
+    open: boolean;
+    setOpen: (arg: boolean) => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ open, setOpen }) => {
     return (
         <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Content maxWidth='450px'>
@@ -20,12 +25,13 @@ const Modal: React.FC<{ open: boolean; setOpen: (arg: boolean) => void }> = ({ o
                             Cancel
                         </Button>
                     </Dialog.Close>
-                    <Button type='submit' form='form'>Save</Button>
+                    <Button type='submit' form='form'>
+                        Save
+                    </Button>
                 </Flex>
             </Dialog.Content>
         </Dialog.Root>
-
-    )
-}
+    );
+};
 
 export default Modal;

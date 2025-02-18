@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { trpc } from "@/app/_trpc/client";
-import { Spinner } from "@radix-ui/themes";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { trpc } from '@/app/_trpc/client';
+import { Spinner } from '@radix-ui/themes';
 
 export interface Notification {
     id?: string;
@@ -31,7 +31,11 @@ interface NotificationContextType {
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
-export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface NotificationProviderProps {
+    children: React.ReactNode;
+}
+
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
     const { data, isLoading, error } = trpc.getNotifications.useQuery();
 
     const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -55,7 +59,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
             setUnread(prevUnread => prevUnread + 1);
         },
         onError: error => {
-            console.error("Error creating notification:", error);
+            console.error('Error creating notification:', error);
         },
     });
 
@@ -63,12 +67,12 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         try {
             const sanitizedNotification = {
                 ...notification,
-                person: notification.person === null ? "" : notification.person,
-                release: notification.release === null ? "" : notification.release,
+                person: notification.person === null ? '' : notification.person,
+                release: notification.release === null ? '' : notification.release,
             };
             await createNotification(sanitizedNotification);
         } catch (error) {
-            console.error("Error adding notification:", error);
+            console.error('Error adding notification:', error);
         }
     };
 
@@ -83,7 +87,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
             setUnread(prevUnread => (updatedNotification.read ? prevUnread - 1 : prevUnread));
         },
         onError: err => {
-            console.error("Error marking notification as read:", err);
+            console.error('Error marking notification as read:', err);
         },
     });
 
@@ -96,7 +100,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }
 
     return (
-        <Spinner size="3" loading={isLoading}>
+        <Spinner size='3' loading={isLoading}>
             <NotificationContext.Provider
                 value={{
                     notifications,
@@ -115,7 +119,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 export const useNotifications = () => {
     const context = useContext(NotificationContext);
     if (!context) {
-        throw new Error("useNotifications must be used within a NotificationProvider");
+        throw new Error('useNotifications must be used within a NotificationProvider');
     }
     return context;
 };

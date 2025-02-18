@@ -4,7 +4,7 @@ import { DropdownMenu, Button, Avatar } from '@radix-ui/themes';
 import React, { useEffect, useState } from 'react';
 import { BellIcon, PlusIcon } from '@radix-ui/react-icons';
 import { useNotifications } from '../_context/NotificationContext';
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import '../globals.css';
 import Modal from './Modal';
 import Alert from './Alert';
