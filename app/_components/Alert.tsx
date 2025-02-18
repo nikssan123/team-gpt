@@ -1,4 +1,4 @@
-import { AlertDialog, Button, Text } from '@radix-ui/themes';
+import { AlertDialog, Text } from '@radix-ui/themes';
 import React from 'react';
 
 interface AlertProps {

@@ -61,6 +61,7 @@ const NotificationForm: React.FC<NotificationFormProps> = ({ setOpen }) => {
                 setOpen(false);
             }, 3000);
         } catch (e) {
+            console.log(`Error: ${e}`)
             setError('Something went wrong')
         }
     };
