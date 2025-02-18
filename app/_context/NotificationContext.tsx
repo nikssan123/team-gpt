@@ -46,7 +46,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
             if (data) {
                 setNotifications(data);
 
-                const unreadCount = data.filter(notification => !notification.read).length;
+                const unreadCount = data.filter((notification: Notification) => !notification.read).length;
                 setUnread(unreadCount);
             }
         },
